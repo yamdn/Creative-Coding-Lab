@@ -19,7 +19,7 @@ function setup() {
   canvas.parent("p5-canvas-container");
 
   // ...except to adjust the dancer's name on the next line:
-  let headSize = 40;
+  let headSize = 50;
   let r = random(255);
   let g = random(255);
   let b = random(255); 
@@ -109,6 +109,7 @@ class littleGuy {
 
     this.drawFace();
     if (!this.reflect) {
+        this.drawHeart();
         this.drawReferenceShapes();
     }
     pop();
@@ -138,6 +139,7 @@ class littleGuy {
 
   drawFace() {
     textAlign(CENTER, CENTER);
+    textSize(this.headSize/3);
     fill(0);
     noStroke();
     
@@ -150,6 +152,18 @@ class littleGuy {
     } else {
       text(" ͡• ㅅ ͡•", this.bobX, this.bobY);
     }
+  }
+
+  drawHeart() {
+    push();
+    translate(this.headSize/1.5, 0); 
+
+    fill('pink');
+    textAlign(CENTER, CENTER);  
+    textSize(this.headSize/3);
+    text("˚ʚ♡ɞ˚", 0, -this.headSize*2/3 + map(sin(frameCount/50), -1, 1, -1, -5));
+
+    pop();
   }
 
   drawReferenceShapes() {
