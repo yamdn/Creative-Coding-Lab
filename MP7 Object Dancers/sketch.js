@@ -110,7 +110,7 @@ class littleGuy {
     this.drawFace();
     if (!this.reflect) {
         this.drawHeart();
-        this.drawReferenceShapes();
+        // this.drawRefer enceShapes();
     }
     pop();
   }
