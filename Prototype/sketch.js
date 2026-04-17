@@ -1,108 +1,128 @@
-let homePage, homeIcons;
-let windowImg1, closeImg;
-let windowArr = []; // Initialize as an empty array
+// states
+let homePage; 
+let compIcon, folderIcon, globeIcon, musicIcon, camIcon, noteIcon, gambleIcon; 
+
+let windowImg1, closeImg, windW, windH, windX, windY, isWindowVisible;
+let windowArr = [];  
+let windowPrompts = ["app", "rate", "time"];
 let windowDict; 
-let windowPrompts = ["app", "rate", "time"]; // Keys for your dictionary
+
+// audio 
+let churchill, santa, sinatra, vocals;
+
+// new fonts
+let pixFont; 
+
+// annoying window 
+// windowPrompts = {rate: "Rate your experience (˶ᵔ ᵕ ᵔ˶)", app: "Download our App! 𐦂𖨆𐀪𖠋", time: "That's enough screen time. (ㆆࡇㆆ)"}; 
 
 function preload() {
   homePage = loadImage("assets/images/homePage.png");
-  homeIcons = loadImage("assets/images/homeIcons.png");
+  homeIcons = loadImage ("assets/images/homeIcons.png");
   windowImg1 = loadImage("assets/images/appWindow.png");
   closeImg = loadImage("assets/images/closeWindow.png");
-  pixFont = loadFont("assets/Retropix.ttf"); 
+
+  // soundFormats("mp3");
+  // churchill = loadSound("assets/audio/churchill");
+  // santa = loadSound("assets/audio/santa");
+  // sinatra = loadSound("assets/audio/sinatra");
+  // vocals = loadSound("assets/audio/vocals");
+
+  pixFont = loadFont("/assets/Retropix.ttf"); 
+  
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  // ===== cropping desktop icons =====
+  compIcon = crop(homeIcons, 60, 90, 155, 190);
+  folderIcon = crop(homeIcons, 60, 360, 160, 130);
+  globeIcon = crop(homeIcons, 50, 560, 170, 170);
+  musicIcon = crop(homeIcons, 1640, 80, 198, 200);
   
-  // Set up your dictionary
+  camIcon = crop(homeIcons, 20, 1011, 65, 60);
+  noteIcon = crop(homeIcons, 100, 1011, 50, 55);
+  gambleIcon = crop(homeIcons, 1818, 1008, 63, 63);
+
+  // ===== popup window =====
   windowDict = {
     app: windowImg1,
-    rate: windowImg1, // You can add different images here later
+    rate: windowImg1,
     time: windowImg1
   };
 
-  spawnWindow(); 
+  spawnWindow(); // can maybe removed later? 
+
 }
 
 function draw() {
+  // background(220, 0, 0);
   image(homePage, 0, 0, width, height);
 
-  // Loop through the array and tell each window to show itself
-  for (let i = 0; i < windowArr.length; i++) {
-    windowArr[i].display();
+  for(let i = 0; i <windowArr.length; i++) {
+    windowArr[i].display(); 
   }
 }
 
 function spawnWindow() {
-  // Pick a random key from our prompt list
-  let randKey = random(windowPrompts);
+  let randKey = random(windowPrompts); 
   let img = windowDict[randKey];
 
-  // Add a new instance to the array
-  windowArr.push(new WindowChild(img, closeImg));
-
-  // Wait a random amount of time before spawning the next annoying window
-  setTimeout(spawnWindow, random(2000, 5000));
+  windowArr.push(new createWindow(img, closeImg));
+  setTimeout(spawnWindow, random(2000, 5000)); 
 }
 
 function mousePressed() {
-  // Loop BACKWARDS through the array (top window to bottom window)
-  for (let i = windowArr.length - 1; i >= 0; i--) {
-    // Check if the click happened on THIS window's close button
-    if (windowArr[i].checkClick()) {
-      windowArr.splice(i, 1); // Remove 1 element at index i
-      break; // Stop the loop so we don't click through to windows underneath
+  for(let i = windowArr.length -1; i>=0; i--){
+    if (windowArr[i].checkClicked()) {
+      windowArr.splice(i, 1);
+      break;
     }
   }
 }
 
-class WindowChild {
+class createWindow {
   constructor(windowImg, closeImg) {
     this.windowImg = windowImg;
     this.closeImg = closeImg;
 
-    // Scaling logic
-    this.scale = random(0.4, 0.8);
-    this.w = this.windowImg.width * this.scale;
-    this.h = this.windowImg.height * this.scale;
-    
-    this.x = random(0, width - this.w); 
-    this.y = random(0, height - this.h); 
+    // this.windScale = random(windowWidth*0.0002, windowWidth*0.0004); 
+    this.windScale = random(0.4, 0.8);
+    this.windW = this.windowImg.width * this.windScale;
+    this.windH = this.windowImg.height * this.windScale;
+    this.windX = random(0, width - this.windW); 
+    this.windY = random(0, height - this.windH); 
 
-    // Pre-calculate button bounds for better performance
-    this.btnX = this.x + (this.w * 0.893);
-    this.btnY = this.y + (this.h * 0.074);
-    this.btnW = this.w * 0.055;
-    this.btnH = this.h * 0.165;
+    this.closeX = this.windX + (this.windW * 0.893);
+    this.closeY = this.windY + (this.windH * 0.074);
+    this.closeW = this.windW * 0.055;
+    this.closeH = this.windH * 0.165;
   }
 
   display() {
-    image(this.windowImg, this.x, this.y, this.w, this.h);
+    image(this.windowImg, this.windX, this.windY, this.windW, this.windH);
     
-    // Check for hover state
-    if (this.isMouseOverButton()) {
+    if (this.isMouseOverClose()) {
       push();
       tint(255, 0, 0); 
-      image(this.closeImg, this.btnX, this.btnY, this.btnW, this.btnH);
+      image(this.closeImg, this.closeX, this.closeY, this.closeW, this.closeH);
       pop();
-    } else {
-      image(this.closeImg, this.btnX, this.btnY, this.btnW, this.btnH);
     }
   }
 
-  // Helper function to see if mouse is over the close button
-  isMouseOverButton() {
-    return (mouseX > this.btnX && mouseX < this.btnX + this.btnW && 
-            mouseY > this.btnY && mouseY < this.btnY + this.btnH);
+  isMouseOverClose() {
+    return (mouseX > this.closeX && mouseX < this.closeX + this.closeW && 
+            mouseY > this.closeY && mouseY < this.closeY + this.closeH) 
   }
 
-  // Called by the main mousePressed function
-  checkClick() {
-    return this.isMouseOverButton();
+  // called by the mousePressed function 
+  checkClicked() {
+    return this.isMouseOverClose(); 
   }
 }
 
 function crop(img, x, y, w, h) {
   return img.get(x, y, w, h);
 }
+
