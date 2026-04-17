@@ -28,7 +28,7 @@ function preload() {
   // sinatra = loadSound("assets/audio/sinatra");
   // vocals = loadSound("assets/audio/vocals");
 
-  pixFont = loadFont("/assets/Retropix.ttf"); 
+  // pixFont = loadFont("/assets/Retropix.ttf"); 
   
 }
 
