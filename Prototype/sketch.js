@@ -87,7 +87,8 @@ class createWindow {
     this.windowImg = windowImg;
     this.closeImg = closeImg;
 
-    this.windScale = random(width*0.0002, width*0.0004); 
+    // this.windScale = random(windowWidth*0.0002, windowWidth*0.0004); 
+    this.windowScale = random(0.5, 1.0); 
     this.windW = this.windowImg.width * windowScale;
     this.windH = this.windowImg.height * windowScale;
     this.windX = random(0, width - windW); 
@@ -117,10 +118,11 @@ class createWindow {
 
   // called by the mousePressed function 
   checkClicked() {
-    return this.isMouseoverButton(); 
+    return this.isMouseOverClose(); 
   }
 }
 
 function crop(img, x, y, w, h) {
   return img.get(x, y, w, h);
 }
+
