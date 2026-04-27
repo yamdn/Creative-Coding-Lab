@@ -478,12 +478,10 @@ function mousePressed() {
 // +++++ 
 function toggleCamera() {
   if (!isCamOpen) {
-    // 1. START CAMERA
     isCamOpen = true;
 
     // Re-initialize capture
     video = createCapture(VIDEO, { flipped: true }, () => {
-      // This callback runs only when the video is actually ready
       console.log("Video is ready, starting hand detection...");
       handPose.detectStart(video, gotHands);
     });
@@ -491,11 +489,9 @@ function toggleCamera() {
     video.hide();
 
   } else {
-    // 2. STOP CAMERA HARDWARE
     isCamOpen = false;
 
     if (video) {
-      // Tell ML5 to stop looking at the video before we kill it
       handPose.detectStop(); 
 
       let stream = video.elt.srcObject;
