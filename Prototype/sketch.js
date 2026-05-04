@@ -605,7 +605,6 @@ function windowResized() {
 function playRPS(x, y, w, h){
   push(); 
   translate(x,y);
-  textAlign(CENTER, CENTER);
   if (isCounting) {
     updateTimer();
     displayUI(w, h);
@@ -630,6 +629,7 @@ function playRPS(x, y, w, h){
     rect(0, 0, w, h);
     fill(255);
     textSize(32);
+    textAlign(CENTER, CENTER);
     text("Your Move " + userMove, w / 2, h / 2 - 40);
     text("AI Move " + aiMove, w / 2, h / 2 - 80);
 
