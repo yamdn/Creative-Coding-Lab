@@ -288,7 +288,7 @@ function draw() {
     let videoH = height*0.564; 
 
     image(video, videoX, videoY, width*0.378, height*0.564);
-    textAlign(LEFT);
+    textAlign(LEFT, BASELINE);
     playRPS(videoX, videoY, videoW, videoH);
     fill('purple');
     textSize(width*0.06);
