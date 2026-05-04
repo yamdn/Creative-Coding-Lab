@@ -16,7 +16,7 @@ let churchill, santa, sinatra, vocals;
 let pixFont; 
 
 // tokens 
-let token = 0;
+let token = 1000;
 let currentScreen = "homePage";
 let icons = [];
 
@@ -611,6 +611,7 @@ function playRPS(x, y, w, h){
 
   }  else if (winStreak == 2 && token > 0) {
     // === DRAW THE GAMBLE MENU ===
+    textAlign(CENTER, CENTER);
     fill(0, 200);
     rect(0, 0, w, h);
     fill(255);
@@ -629,7 +630,6 @@ function playRPS(x, y, w, h){
     rect(0, 0, w, h);
     fill(255);
     textSize(32);
-    textAlign(CENTER, CENTER);
     text("Your Move " + userMove, w / 2, h / 2 - 40);
     text("AI Move " + aiMove, w / 2, h / 2 - 80);
 
