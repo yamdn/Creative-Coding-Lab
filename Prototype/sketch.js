@@ -605,6 +605,7 @@ function windowResized() {
 function playRPS(x, y, w, h){
   push(); 
   translate(x,y);
+  textAlign(CENTER, CENTER);
   if (isCounting) {
     updateTimer();
     displayUI(w, h);
