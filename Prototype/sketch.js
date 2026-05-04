@@ -663,6 +663,7 @@ function updateTimer() {
 
 function displayUI(wid, hei) {
    // Countdown
+  textAlign(CENTER, CENTER);
   fill(255, 255, 0);
   textSize(width*0.1);
   text(timerValue, wid/ 2, hei / 2);
