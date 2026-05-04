@@ -605,13 +605,13 @@ function windowResized() {
 function playRPS(x, y, w, h){
   push(); 
   translate(x,y);
+  textAlign(CENTER, CENTER);
   if (isCounting) {
     updateTimer();
     displayUI(w, h);
 
   }  else if (winStreak == 2 && token > 0) {
     // === DRAW THE GAMBLE MENU ===
-    textAlign(CENTER, CENTER);
     fill(0, 200);
     rect(0, 0, w, h);
     fill(255);
