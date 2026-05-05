@@ -667,7 +667,7 @@ function displayUI(wid, hei) {
   textAlign(CENTER, CENTER);
   fill(255, 255, 0);
   textSize(width*0.1);
-  text(timerValue, wid/ 2, hei / 2);
+  text(timerValue, wid/ 2, hei / 2 - 80);
 
   // Instructions
   textSize(width*0.02);
