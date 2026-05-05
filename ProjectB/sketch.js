@@ -723,11 +723,11 @@ function gameResult() {
       
     } else if (aiMove == "scissor") {
       result = "LOSE. Token Deducted.";
-      token -= 1;
+      // token -= 1;
       
     } else if (aiMove == "rock") {
       result = "WON. Token Added.";
-      token += 1;
+      // token += 1;
     }
     
   } else if (userMove == "scissor") {
@@ -735,10 +735,10 @@ function gameResult() {
       result = "DRAW. No token added.";
     } else if (aiMove == "rock") {
       result = "LOSE. Token Deducted.";
-      token -= 1;
+      // token -= 1;
     } else if (aiMove == "paper") {
       result = "WON. Token Added.";
-      token += 1;
+      // token += 1;
     }
     
   } else if (userMove == "rock") {
@@ -746,10 +746,10 @@ function gameResult() {
       result = "DRAW. No token added.";
     } else if (aiMove == "paper") {
       result = "LOSE. Token Deducted.";
-      token -= 1;
+      // token -= 1;
     } else if (aiMove == "scissor") {
       result = "WON. Token Added.";
-      token += 1;
+      // token += 1;
     }
   } else {
     result = "Invalid. Try Again."
